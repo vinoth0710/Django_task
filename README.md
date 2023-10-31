@@ -25,6 +25,10 @@ Like: Represents a user's like on an answer. It includes information about the u
 
 3. Installation
 Before using the Quora-inspired website, ensure you have Django installed. You can install Django using the following command:
+```python
+pip install django
+
+```
 
 Copy code
 pip install django
@@ -33,6 +37,13 @@ To set up the project:
 Clone the project repository from your version control system.
 
 Navigate to the project directory and run the following commands:
+```python
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
+
 
 Copy code
 python manage.py makemigrations
