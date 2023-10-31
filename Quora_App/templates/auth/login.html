@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransportSimple | Login</title>
+
+    <!-- Include Bootstrap CSS from a content delivery network (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Include Bootstrap JavaScript from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts (Mukta) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta&display=swap" rel="stylesheet">
+
+    <!-- Inline CSS Styles -->
+    <style>
+        body {
+            /* Background gradient */
+            background: linear-gradient(to bottom, #eeb56f, #f1d59f);
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70%; /* Container width */
+            height: 80vh; /* Container height */
+            background-color: #fff; /* Container background color */
+            font-family: 'Montserrat', sans-serif; /* Font family inside the container */
+        }
+        .card {
+            max-width: 600px; /* Card width */
+            background-color: rgba(210, 210, 210, 0.8); /* Card background color */
+            padding: 30px; /* Card padding */
+            border-radius: 15px; /* Card border radius */
+            font-family: 'Roboto', sans-serif; /* Font family inside the card */
+        }
+        #button {
+            background-color: #00a5e4; /* Button color */
+            font-family: 'Poppins', sans-serif; /* Button font family */
+            color: #fff;
+            padding: 12px 24px; /* Button size */
+            font-size: 18px; /* Button font size */
+        }
+        input::placeholder {
+            font-family: 'Arial', sans-serif; /* Input placeholders font family */
+            font-size: 16px; /* Input placeholders font size */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card shadow p-4">
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <!-- Error message alert -->
+                        <div class="alert alert-dismissible fade show" role="alert" style="background-color: #ff6363;">
+                            <strong>Error:</strong> {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <h4 class="card-title text-center" style="color: #333;">Login to Your Account</h4>
+                <hr>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Your Username" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mt-4">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <!-- Login button -->
+                            <button id="button" type="submit" class="btn mt-3">Login</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <!-- Link to the registration page -->
+                            <p>Don't have an account? <a href="{% url 'Quora:register' %}" style="color: #00a5e4;">Sign Up</a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

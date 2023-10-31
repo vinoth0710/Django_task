@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User | Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@600&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:wght@500&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+</head>
+<style>
+ 
+ body {
+        background-color: #F5A623; /* Orange background */
+    }
+
+    .navbar {
+        background-color: #F5720E; /* Slight orange for the navbar */
+        font-family: 'Mukta', sans-serif;
+        color: #fff;
+    }
+
+    .navbar-brand {
+        font-size: 24px;
+    }
+
+    #answerText {
+        font-family: 'Mukta', sans-serif;
+        font-weight: 300;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #F5A623; /* Orange border */
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 18px; /* Increased font size */
+    }
+
+    .header-question {
+        font-family: 'Mukta', sans-serif;
+        font-weight: 600;
+        font-size: 28px; /* Larger font size */
+    }
+
+    .tittle-q {
+        font-family: 'Sometype Mono', monospace;
+        font-weight: 300;
+        font-size: 16px; /* Smaller font size */
+    }
+
+    .question-text {
+        font-family: 'PT Sans', sans-serif;
+        font-size: 20px; /* Increased font size */
+        font-weight: 500;
+    }
+
+    #AddAnswer, #viewButton {
+        margin: 10px; /* Increased margin */
+        padding: 15px 30px; /* Increased padding */
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: 10px; /* Increased border radius */
+        font-size: 20px; /* Increased font size */
+    }
+
+    #AddAnswer {
+        background-color: #FF3C00; /* Slight orange for Add Answer button */
+        color: #fff;
+    }
+
+    #viewButton {
+        background-color: #E64A19; /* Darker orange for View Answers button */
+        color: #fff;
+    }
+
+    #AddAnswer:hover, #viewButton:hover {
+        background-color: #FF5722; /* Hover color for buttons */
+    }
+
+    #answerText {
+        border: 1px solid #F5A623;
+        border-radius: 5px;
+        padding: 15px; /* Increased padding */
+        font-size: 20px; /* Increased font size */
+    }
+
+    .like-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        border-radius: 10px; /* Increased border radius */
+        cursor: pointer;
+        font-size: 24px; /* Increased font size */
+    }
+
+    .like-button.liked {
+        color: #FF3C00; /* Orange for liked button */
+    }
+
+    #answers-container {
+        margin-top: 30px; /* Increased margin */
+    }
+
+    #card-answer {
+        border: 2px solid #e9dcb2; /* Increased border width */
+        border-radius: 10px; /* Increased border radius */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increased box shadow */
+        margin: 20px; /* Increased margin */
+    }
+
+    #answer-card-body {
+        padding: 20px;
+    }
+
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px; /* Increased padding */
+        border-radius: 10px; /* Increased border radius */
+        font-size: 20px; /* Increased font size */
+    }
+
+    .show-more-btn, .show-less-btn {
+        cursor: pointer;
+        color: #FF5722; /* Slight orange for links */
+        text-decoration: underline;
+        display: none;
+        font-size: 16px; /* Font size for buttons */
+    }
+
+    .show-less-btn {
+        display: inline;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Quora:user_dashboard' %}">Quora</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+                <div class="nav-item dropdown">
+                    <a class="navbar-brand" href="#" data-bs-toggle="modal" data-bs-target="#questionModal"
+                        style="cursor: pointer;">Add Question</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Profile.png"
+                            alt="Profile Picture" class="img-fluid rounded-circle" height="20px" width="28px"> &nbsp; {{ request.user.username }}
+
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'Quora:user_logout' %}">Logout &nbsp; <i
+                                    class="fas fa-sign-out-alt"></i>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 70px;">
+        <div class="row">
+            <div class="col-md-7">
+                <h3 class="text-center"> Questions </h3>
+                <hr>
+                {% for question in questions %}
+                <div class="card mt-3 mb-3">
+                    <div class="card-header header-question" style="font-size: smaller;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="https://www.pngall.com/wp-content/uploads/5/Profile.png"
+                                    alt="Profile Picture" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="card-title">{{ question.user.first_name }}</h5>
+                                <p class="card-title tittle-q">Posted on {{ question.created_at|date:"Y-m-d" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h5 class="card-title question-text">{{ question.text }}</h5> <br>
+
+                            <div id="AddViewContainer" class="d-flex align-items-center">
+                                <form action="{% url 'Quora:user_dashboard' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="question_id" value="{{ question.id }}">
+                                    <button type="submit" id="viewButton">View Answers</button>
+                                </form>
+                                <button id="AddAnswer"><span class="add-answer" data-bs-toggle="modal"
+                                        data-bs-target="#answerModal" style="cursor: pointer;"
+                                        data-question-id="{{ question.id }}">
+                                        Add Answer</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="text" name="question_id" value="{{ question.id }}" style="display: none">
+                {% endfor %}
+
+            </div>
+
+            <div class="col-md-5">
+                <div id="answers-container">
+                    {% if answers %}
+                    <h3 class="text-center"> Answers </h3>
+                    {% for answer in answers %}
+                    <div class="card mt-3 mb-3" id="card-answer">
+                        <div class="card-body" id="answer-card-body">
+                            <div class="list-group-item">
+                                <div id="View-answer">
+                                    <div class="answer-content">
+                                        <div class="limited-content">
+                                            {{ answer.text | slice:":100" }}
+                                        </div>
+                                        <div class="full-content" style="display: none;">
+                                            {{ answer.text }}
+                                        </div>
+                                        <button type="button" class="show-more-btn btn btn-link">Show more</button>
+                                        <button type="button" class="show-less-btn btn btn-link"
+                                            style="display: none;">Show less</button>
+                                    </div>
+                                    <br> <br>
+
+                                    <div style="float: right;">Posted by {{ answer.user }}</div>
+                                    <div style="clear: both;"></div>
+                                    <form class="like-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" class="answer-id" value="{{ answer.id }}">
+                                        <button type="submit"
+                                            class="like-button btn {% if answer.liked %} liked {% endif %}">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+
+                    {% endif %}
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var showMoreButtons = document.querySelectorAll(".show-more-btn");
+                    var showLessButtons = document.querySelectorAll(".show-less-btn");
+
+                    for (var i = 0; i < showMoreButtons.length; i++) {
+                        var showMoreButton = showMoreButtons[i];
+                        var showLessButton = showLessButtons[i];
+
+                        showMoreButton.addEventListener("click", function () {
+                            var limitedContent = this.parentElement.querySelector(".limited-content");
+                            var fullContent = this.parentElement.querySelector(".full-content");
+
+                            limitedContent.style.display = "none";
+                            fullContent.style.display = "block";
+                            this.style.display = "none";
+                            showLessButton.style.display = "inline";
+                        });
+
+                        showLessButton.addEventListener("click", function () {
+                            var limitedContent = this.parentElement.querySelector(".limited-content");
+                            var fullContent = this.parentElement.querySelector(".full-content");
+
+                            limitedContent.style.display = "block";
+                            fullContent.style.display = "none";
+                            this.style.display = "none";
+                            showMoreButton.style.display = "inline";
+                        });
+                    }
+                });
+            </script>
+
+
+            <script>
+
+                document.querySelectorAll('.like-form').forEach(function (form) {
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        const likeButton = this.querySelector('.like-button');
+                        const csrfToken = this.querySelector('[name=csrfmiddlewaretoken]').value;
+                        const answerId = this.querySelector('.answer-id').value;
+
+                        $.ajax({
+                            type: 'POST',
+                            url: `{% url 'Quora:like_unlike_answer' 0 %}`.replace('0', answerId),
+                            data: { csrfmiddlewaretoken: csrfToken },
+                            success: function (data) {
+                                if (data.liked) {
+
+                                    Swal.fire('Liked', `You liked the answer`, 'success');
+                                } else {
+
+                                    Swal.fire('Unliked', `You unliked the answer`, 'success');
+                                }
+                            },
+                            error: function (error) {
+                                console.error(error);
+                                Swal.fire('Error', 'An error occurred', 'error');
+                            }
+                        });
+                    });
+                });
+
+                $(document).ready(function () {
+                    $('.like-button').click(function () {
+                        $(this).toggleClass('liked');
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="modal fade" id="answerModal" tabindex="-1" aria-labelledby="answerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="answerModalLabel">Add Answer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form method="Post" id="SubmitAnswerForm">
+                    <div class="modal-body">
+                        <textarea name="text" id="answerText" cols="55" rows="5"
+                            placeholder="Write Your Answer.."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Answer</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="questionModalLabel">Add Question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form method="Post" id="SubmitQuestionForm">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <textarea name="text" id="answerText" cols="55" rows="5"
+                            placeholder="Write Your Question.."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save Question</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $(document).ready(function () {
+
+        $("#SubmitQuestionForm").submit(function (event) {
+            event.preventDefault();
+
+
+            var formData = $(this).serialize() + '&csrfmiddlewaretoken=' + $('input[name=csrfmiddlewaretoken]').val();
+            var endpointUrl = "{% url 'Quora:save_question_details' %}";
+
+
+            $.ajax({
+                type: "POST",
+                url: endpointUrl,
+                data: formData,
+                success: function (response) {
+
+                    if (response.success) {
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(function () {
+
+                            location.reload();
+                        });
+                    } else {
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function () {
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Registration failed due to a server error. Please try again later.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    });        
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.add-answer').on('click', function () {
+            questionId = $(this).data('question-id');
+            console.log(questionId)
+            $('#SubmitAnswerForm').find('input[name="question_id"]').val(questionId);
+            $('#answerModal').modal('show');
+        });
+
+        $('#SubmitAnswerForm').on('submit', function (e) {
+            e.preventDefault();
+            var answerText = $('#answerText').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "Quora:add_answer" %}',
+                data: {
+                    'question_id': questionId,
+                    'answer_text': answerText,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 'success') {
+                        Swal.fire('Success', response.message, 'success');
+                        $('#answerModal').modal('hide');
+                        // You can update the UI to display the new answer here.
+                    } else {
+                        Swal.fire('Error', response.message, 'error');
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    Swal.fire('Error', 'An error occurred while adding the answer.', 'error');
+                }
+            });
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransportSimple | Registration</title>
+    
+    <!-- Include Bootstrap CSS from a content delivery network (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Include Bootstrap JavaScript from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts (Oswald) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
+    <!-- Include SweetAlert2 from a CDN for displaying alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.css">
+
+    <!-- Inline CSS Styles -->
+    <style>
+        body {
+            /* Background gradient */
+            background: linear-gradient(to bottom right, #FFAA00, #FF5500);
+            font-family: 'Oswald', sans-serif; /* Change the font family */
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70%; /* Change the container width */
+            height: 80vh; /* Change the container height */
+            background-color: #FFF8E2; /* Change the container background color */
+            font-family: 'Arial', sans-serif; /* Change the font family inside the container */
+        }
+
+        .card {
+            max-width: 600px; /* Increase the card width */
+            background-color: rgba(240, 240, 240, 0.9); /* Change the card background color */
+            padding: 25px; /* Increase the padding */
+            border-radius: 15px; /* Change the border radius */
+            font-family: 'Arial', sans-serif; /* Change the font family inside the card */
+        }
+        #button {
+            background-color: #FF4400; /* Change the button color */
+            font-family: 'Oswald', sans-serif; /* Change the font family of the button */
+            color: #fff;
+            padding: 14px 30px; /* Increase button size */
+            font-size: 18px; /* Increase font size */
+        }
+        input::placeholder {
+            font-family: 'Arial', sans-serif; /* Change the font family of input placeholders */
+            font-size: 16px; /* Change the font size of input placeholders */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card shadow p-4">
+            <div class="card-body">
+                
+                <h3 class="card-title text-center" style="color: #FF4400;">Create Your Account</h3>
+                <hr>
+                <form method="post">
+                    {% csrf_token %} <!-- CSRF token for form submission -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Your Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-4">
+                            <div class "form-group"> <!-- Fix: Change 'div "form-group"' to 'div class="form-group"' -->
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Choose a Username" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mt-4">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Create a Password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mt-4">
+                                <input type="password" class="form-control" id="password2" name="password2" placeholder="Re-enter Password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button id="button" type="submit" class="btn mt-3">Register</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <p>Already have an account? <a href="{% url 'Quora:login' %}" style="color: #FF4400;">Log In</a></p>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // JavaScript to check if passwords match and show an alert if they don't
+    document.addEventListener('DOMContentLoaded', function () {
+        const password = document.getElementById('password');
+        const password2 = document.getElementById('password2');
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            if (password.value !== password2.value) {
+                event.preventDefault();
+                // Display a password mismatch alert using SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password Mismatch',
+                    text: 'The passwords do not match. Please try again.',
+                });
+            }
+        });
+    });
+</script>
+</html>
