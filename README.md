@@ -24,6 +24,9 @@
 
 
 
+
+
+
 **1. Introduction**
 This documentation outlines the key aspects of a Quora-inspired website implemented using Django. The project is designed to allow users to create accounts, post questions, view questions posted by others, answer questions, like answers, and log out.
 
