@@ -3,15 +3,9 @@
 **Table of Contents**
 
 1.Introduction
-2.Project Description
-3.Installation
-4.User Registration and Login
-5.User Dashboard
-6.Creating Questions
-7.Answering Questions
-8.Liking/Unliking Answers
-9.Logging Out
-10.Conclusion
+2.adsflaj
+
+
 
 
 1. Introduction
