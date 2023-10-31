@@ -1,2 +1,61 @@
-# Django_task
-Problem Statement:  Create a website inspired by Quora with the following functionality: The user should be able to create a login Post questions View questions posted by others  Able to answer questions posted by others Should be able to like answers posted by others Able to log out
+Quora-Inspired Website Documentation
+Table of Contents
+Introduction
+Project Description
+Installation
+User Registration and Login
+User Dashboard
+Creating Questions
+Answering Questions
+Liking/Unliking Answers
+Logging Out
+Conclusion
+1. Introduction
+This documentation outlines the key aspects of a Quora-inspired website implemented using Django. The project is designed to allow users to create accounts, post questions, view questions posted by others, answer questions, like answers, and log out.
+
+2. Project Description
+The project consists of three main models: Question, Answer, and Like. These models are defined in the models.py file of the Django application.
+
+Models:
+Question: Represents a posted question. It includes information about the user who posted the question, the text of the question, and timestamps for creation and updates.
+
+Answer: Represents an answer to a question. It includes information about the user who posted the answer, the question it's answering, the text of the answer, and timestamps for creation and updates.
+
+Like: Represents a user's like on an answer. It includes information about the user who liked the answer and the answer they liked.
+
+3. Installation
+Before using the Quora-inspired website, ensure you have Django installed. You can install Django using the following command:
+
+Copy code
+pip install django
+To set up the project:
+
+Clone the project repository from your version control system.
+
+Navigate to the project directory and run the following commands:
+
+Copy code
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+4. User Registration and Login
+User Registration: Users can register by filling out the registration form. The registration view in the views.py file handles user registration. Users provide a first name, username, and password.
+
+User Login: Registered users can log in by providing their username and password. The user_login view in the views.py file handles user authentication and login.
+
+5. User Dashboard
+User Dashboard: After logging in, users are directed to their dashboard, where they can see questions posted by others. The user_dashboard view in the views.py file manages the dashboard. It also includes a form for posting answers to questions and liking/unliking answers.
+6. Creating Questions
+Posting Questions: Users can post questions from their dashboard. The save_question_details view in the views.py file handles question creation. It requires a user to be logged in and includes validation for the question text.
+7. Answering Questions
+Adding Answers: Users can answer questions by filling out the answer form on the dashboard. The add_answer view in the views.py file handles answer creation. It requires a user to be logged in and includes validation for the answer text.
+
+Retrieving Answers: Users can retrieve the last answer for a question by using the get_answers view in the views.py file. This view returns the text of the last answer to the client.
+
+8. Liking/Unliking Answers
+Liking/Unliking Answers: Users can like or unlike answers posted by others. This feature is handled by the like_unlike_answer view in the views.py file. Users can click on the like button, which will either like the answer if they haven't already or unlike it if they have already liked it.
+9. Logging Out
+Logging Out: Users can log out by clicking on the "Log Out" button. The user_logout view in the views.py file handles user logout and redirects them to the login page.
+10. Conclusion
+This Quora-inspired website project aims to provide a platform for users to create accounts, post questions, view questions, answer questions, like answers, and log out. It utilizes Django for its backend and provides a straightforward user interface. The provided documentation covers key functionalities, but additional features and improvements can be made based on project requirements.
