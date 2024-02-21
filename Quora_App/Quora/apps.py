@@ -5,4 +5,4 @@ class QuoraAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'Quora'
 
-    # helklo
+    # h
